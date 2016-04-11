@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -27,7 +28,10 @@ func (server *SimpleHandler) ServeHTTP(w http.ResponseWriter, request *http.Requ
 }
 
 func main() {
-	const port = ":8080"
+	var port string
+
+	flag.StringVar(&port, "port", ":8080", "The port to listen on in format ':PORT', e.g ':8080'.")
+	flag.Parse()
 
 	blobStorageHandler, err := NewSimpleHandler()
 	if err != nil {
